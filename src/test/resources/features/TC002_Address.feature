@@ -3,7 +3,7 @@ Feature: User API Automation for OMR Branch Hotel Application
   This feature verifies user login, state list, city list, and address 
   management through API automation.
 
-   @Loginv
+   @Loginv @sam
   Scenario: Get User logtoken from login endpoint
     Given User adds required login headers
     When User adds basic authentication for login
@@ -11,14 +11,14 @@ Feature: User API Automation for OMR Branch Hotel Application
     Then User should verify the status code is 200
     And User should verify the login response body contains firstName "Sam" and save the logtoken
 
-  @StateListv
+  @StateListv @sam
   Scenario: Verify User Get StateList through API
     Given User adds headers for StateList
     When User sends "GET" request to StateList endpoint
     Then User should verify the status code is 200
     And User should verify the stateList response message matches "Tamil Nadu" and save the state id
 
-  @CityListv
+  @CityListv @sam
   Scenario: Verify User Get City list through API
     Given User adds headers for CityList
     When User adds request body with state id for city list
@@ -26,7 +26,7 @@ Feature: User API Automation for OMR Branch Hotel Application
     Then User should verify the status code is 200
     And User should verify the cityList response message matches "Yercaud" and save the city id
 
-  @AddAddress
+  @AddAddress @sam
   Scenario Outline: Verify add user address through API
     Given User adds headers and bearer authorization for accessing address endpoints
     When User adds request body for add new address "<first_name>","<last_name>","<mobile>","<apartment>","<state>","<city>","<country>","<zipcode>","<address>","<address_type>"
@@ -38,7 +38,7 @@ Feature: User API Automation for OMR Branch Hotel Application
       | first_name | last_name | mobile     | apartment | state | city | country | zipcode | address          | address_type |
       | Sam     | Richardson      | 7305385996 | Apt-123   | 35    | 4440 | 101     | 600100  | 123, OMR Street | Home         |
 
-  @UpdateAddress
+  @UpdateAddress @sam
   Scenario Outline: Verify update user address through API
     Given User adds headers and bearer authorization for accessing address endpoints
     When User adds request body to update address "<first_name>","<last_name>","<mobile>","<apartment>","<state>","<city>","<country>","<zipcode>","<address>","<address_type>"
@@ -57,7 +57,7 @@ Feature: User API Automation for OMR Branch Hotel Application
     Then User should verify the status code is 200
     And User should verify the GetUserAddress response message matches "OK"
 
-  @DeleteAddress
+  @DeleteAddress @sam
   Scenario: Verify Delete User Address through API
     Given User adds headers and bearer authorization for accessing address endpoints
     When User adds request body with address id

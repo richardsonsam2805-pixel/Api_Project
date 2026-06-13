@@ -13,7 +13,7 @@ import io.cucumber.junit.CucumberOptions.SnippetType;
 @CucumberOptions(
         features = "src/test/resources",
         glue = "com.omrbranch.stepdefinition",
-        tags = "@Login or @Profile",
+        tags = "@sam",
         dryRun = false,
         monochrome = false,
         publish = true,

@@ -1,0 +1,86 @@
+pipeline {
+
+
+agent any
+
+tools {
+
+    maven 'Maven'
+}
+
+parameters {
+
+     choice(
+        name: 'BROWSER',
+        choices: ['chrome', 'edge', 'firefox'],
+        description: 'Select Browser'
+    )
+
+}
+
+stages {
+
+    stage('Git Checkout') {
+
+        steps {
+
+            echo "Fetching latest code from GitHub"
+
+            git branch: 'master',
+            url: 'https://github.com/richardsonsam2805-pixel/Api_Project.git'
+        }
+    }
+
+    stage('Clean Project') {
+
+        steps {
+
+            echo "Cleaning project"
+
+            bat 'mvn clean'
+        }
+    }
+
+    stage('Build Project') {
+
+        steps {
+
+            echo "Building project"
+
+            bat 'mvn compile'
+        }
+    }
+
+    stage('Execute Tests') {
+
+        steps {
+
+            echo "Executing automation tests"
+
+            bat "mvn test -Dbrowser=${params.BROWSER}"
+        }
+    }
+}
+
+post {
+
+    always {
+
+        cucumber buildStatus: 'UNSTABLE',
+        fileIncludePattern: '**/target/output.json',
+        sortingMethod: 'ALPHABETICAL'
+    }
+
+    success {
+
+        echo 'Execution completed successfully'
+    }
+
+    failure {
+
+        echo 'Execution failed'
+    }
+}
+
+
+}
